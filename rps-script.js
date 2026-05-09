@@ -29,7 +29,7 @@ function playRound(computerChoice, humanChoice) {
 
     if (computerChoice === humanChoice) {
         console.log(`Both chose ${capitalize(humanChoice)}! Round draw.`);
-        return;
+        return "draw";
     }
 
     let humanWon;
@@ -56,15 +56,22 @@ function playRound(computerChoice, humanChoice) {
         console.log(`You lose! ${capitalize(humanChoice)} loses to ${capitalize(computerChoice)}`);
         computerScore++;
     }
+    return "score";
 }
 
 function playGame() {
-    playRound(getComputerChoice(), getHumanChoice());
-    playRound(getComputerChoice(), getHumanChoice());
-    playRound(getComputerChoice(), getHumanChoice());
-    playRound(getComputerChoice(), getHumanChoice());
-    playRound(getComputerChoice(), getHumanChoice());
+    for (let i = 0; i < 5; i++) {
+        while(playRound(getComputerChoice(), getHumanChoice()) === "draw")
+        {
+            console.log("Replaying round...");
+        }
 
+        if (computerScore >= 3 || humanScore >= 3)
+        {
+            break;  
+        }
+    }
+    
     const finalScoreMessage = humanScore > computerScore ? 'won' : 'lost';
     console.log(`You ${finalScoreMessage} the game! Score: ${humanScore}:${computerScore}`);
 }
