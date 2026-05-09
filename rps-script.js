@@ -16,3 +16,6 @@ function getHumanChoice() {
     let choice = prompt("Choose a hand (rock / paper / scissors):");
     return choice.trim().toLowerCase();
 }
+
+let computerScore = 0;
+let humanScore = 0;
