@@ -17,5 +17,43 @@ function getHumanChoice() {
     return choice.trim().toLowerCase();
 }
 
+function capitalize(str) {
+    return str[0].toUpperCase() + str.slice(1).toLowerCase();
+}
+
 let computerScore = 0;
 let humanScore = 0;
+
+function playRound(computerChoice, humanChoice) {
+    humanChoice = humanChoice.toLowerCase();
+
+    if (computerChoice === humanChoice) {
+        console.log(`Both chose ${capitalize(humanChoice)}! Round draw.`);
+        return;
+    }
+
+    let humanWon;
+    switch (humanChoice) {
+        case "rock":
+            humanWon = computerChoice === "scissors";
+            break;
+        case "paper":
+            humanWon = computerChoice === "rock";
+            break;
+        case "scissors":
+            humanWon = computerChoice === "paper";
+            break;
+        default:
+            console.log("ERROR: unknown human choice");
+            return;
+    }
+    
+    if (humanWon) {
+        console.log(`You win! ${capitalize(humanChoice)} beats ${capitalize(computerChoice)}`);
+        humanScore++;
+    }
+    else {
+        console.log(`You lose! ${capitalize(humanChoice)} loses to ${capitalize(computerChoice)}`);
+        computerScore++;
+    }
+}
