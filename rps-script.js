@@ -57,3 +57,16 @@ function playRound(computerChoice, humanChoice) {
         computerScore++;
     }
 }
+
+function playGame() {
+    playRound(getComputerChoice(), getHumanChoice());
+    playRound(getComputerChoice(), getHumanChoice());
+    playRound(getComputerChoice(), getHumanChoice());
+    playRound(getComputerChoice(), getHumanChoice());
+    playRound(getComputerChoice(), getHumanChoice());
+
+    const finalScoreMessage = humanScore > computerScore ? 'won' : 'lost';
+    console.log(`You ${finalScoreMessage} the game! Score: ${humanScore}:${computerScore}`);
+}
+
+playGame();
