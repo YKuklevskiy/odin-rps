@@ -11,3 +11,8 @@ function getComputerChoice() {
             return "error";
     }
 }
+
+function getHumanChoice() {
+    let choice = prompt("Choose a hand (rock / paper / scissors):");
+    return choice.trim().toLowerCase();
+}
