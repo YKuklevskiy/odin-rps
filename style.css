@@ -2,6 +2,21 @@
 * {
     margin: 0;
     padding: 0;
+    color: var(--antique-white);
+}
+
+.border {
+    border-color: var(--charcoal);
+    border-style: solid;
+}
+
+:root {
+    --antique-white: #faebd7;
+    --charcoal: #545454;
+    --slate-grey: #69747c;
+    --burnt-peach: #d77a61;
+    --mauve: #d7b8f3;
+    --malachite: #32e875ff;
 }
 
 h1 {
@@ -9,6 +24,7 @@ h1 {
 }
 
 body {
+    background-color: var(--antique-white);
     min-height: 100vh;
     margin: auto;
     display:flex;
@@ -18,7 +34,12 @@ body {
 }
 
 #content {
-    height: 100%;
+    min-width: 400px;
+
+    background-color:var(--slate-grey);
+    padding: 32px;
+    border-radius: 16px;
+    border-width: 4px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -33,14 +54,17 @@ body {
     display: flex;
     gap: 16px;
     vertical-align: middle;
+    padding: 16px;
+    background-color: var(--charcoal);
+    border-radius: 16px;
 }
 
 #human-score {
-    color: green;
+    color: var(--malachite);
 }
 
 #computer-score {
-    color: red;
+    color: var(--burnt-peach);
 }
 
 /* choices */
@@ -56,13 +80,13 @@ body {
     font-size: 3em;
     width: 150px;
     height: 150px;
-    border: 2px solid black;
+    border-width: 4px;
     border-radius: 12%;
     background-color: antiquewhite;
 }
 
 .choice-button:hover {
-    background-color: #EEE;
+    background-color: var(--mauve);
 }
 
 /* rounds */
