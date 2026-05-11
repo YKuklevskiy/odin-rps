@@ -59,6 +59,7 @@ function playRound(computerChoice, humanChoice) {
     return "score";
 }
 
+/*
 function playGame() {
     for (let i = 0; i < 5; i++) {
         while(playRound(getComputerChoice(), getHumanChoice()) === "draw")
@@ -77,3 +78,4 @@ function playGame() {
 }
 
 playGame();
+*/
