@@ -83,6 +83,17 @@ function updateScoreboard() {
     computerScoreText.textContent = computerScore;
 }
 
+function restartGame() {
+    humanScore = 0;
+    computerScore = 0;
+    updateScoreboard();
+
+    const roundResults = document.getElementById("round-results");
+    while(roundResults.childNodes.length > 0) {
+        roundResults.removeChild(roundResults.childNodes[0]);
+    }
+}
+
 // logic
 const choiceContainer = document.querySelector(".choice-container");
 choiceContainer.addEventListener("click", function(event) {
@@ -108,23 +119,13 @@ addRoundMessage("jesajejs");
 addRoundMessage("jesajejs");
 addRoundMessage("jesajejs");
 
-/*
-function playGame() {
-    for (let i = 0; i < 5; i++) {
-        while(playRound(getComputerChoice(), getHumanChoice()) === "draw")
-        {
-            console.log("Replaying round...");
-        }
-
-        if (computerScore >= 3 || humanScore >= 3)
-        {
-            break;  
-        }
+document.addEventListener("updatescore", () => {
+    if(computerScore >= 3 || humanScore >= 3)
+    {
+        const winResult = humanScore > computerScore ? 'won' : 'lost';
+        const finalMessage = `You ${winResult} the game! Score: ${humanScore}:${computerScore}`;
+        addRoundMessage(finalMessage);
+        alert(finalMessage);
+        restartGame();
     }
-    
-    const finalScoreMessage = humanScore > computerScore ? 'won' : 'lost';
-    console.log(`You ${finalScoreMessage} the game! Score: ${humanScore}:${computerScore}`);
-}
-
-playGame();
-*/
+})
