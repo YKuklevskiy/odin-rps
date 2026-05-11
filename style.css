@@ -90,6 +90,15 @@ body {
 }
 
 /* rounds */
+#round-results-container {
+    min-height: 300px;
+}
+
+.rounds-header {
+    margin-bottom: 8px;
+    text-align: center;
+}
+
 #round-results p {
     font-size: 1.25em;
     text-align: center;
