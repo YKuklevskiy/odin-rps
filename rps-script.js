@@ -21,6 +21,20 @@ function capitalize(str) {
     return str[0].toUpperCase() + str.slice(1).toLowerCase();
 }
 
+const updateScoreEvent = (winner) => {
+    return new CustomEvent("updatescore", {
+        bubbles: true, 
+        detail: {winner: winner}
+    });
+};
+
+function addRoundMessage(message) {
+    const roundResultsContainer = document.getElementById("round-results");
+    const round = document.createElement("p");
+    round.textContent = message;
+    roundResultsContainer.insertBefore(round, roundResultsContainer.childNodes[0]);
+}
+
 let computerScore = 0;
 let humanScore = 0;
 
@@ -28,7 +42,7 @@ function playRound(computerChoice, humanChoice) {
     humanChoice = humanChoice.toLowerCase();
 
     if (computerChoice === humanChoice) {
-        console.log(`Both chose ${capitalize(humanChoice)}! Round draw.`);
+        addRoundMessage(`Both chose ${capitalize(humanChoice)}! Round draw.`);
         return "draw";
     }
 
@@ -49,31 +63,64 @@ function playRound(computerChoice, humanChoice) {
     }
     
     if (humanWon) {
-        console.log(`You win! ${capitalize(humanChoice)} beats ${capitalize(computerChoice)}`);
+        addRoundMessage(`You win! ${capitalize(humanChoice)} beats ${capitalize(computerChoice)}`);
         humanScore++;
+        document.dispatchEvent(updateScoreEvent("human"));
     }
     else {
-        console.log(`You lose! ${capitalize(humanChoice)} loses to ${capitalize(computerChoice)}`);
+        addRoundMessage(`You lose! ${capitalize(humanChoice)} loses to ${capitalize(computerChoice)}`);
         computerScore++;
+        document.dispatchEvent(updateScoreEvent("computer"));
     }
+
     return "score";
 }
 
-function playGame() {
-    for (let i = 0; i < 5; i++) {
-        while(playRound(getComputerChoice(), getHumanChoice()) === "draw")
-        {
-            console.log("Replaying round...");
-        }
-
-        if (computerScore >= 3 || humanScore >= 3)
-        {
-            break;  
-        }
-    }
-    
-    const finalScoreMessage = humanScore > computerScore ? 'won' : 'lost';
-    console.log(`You ${finalScoreMessage} the game! Score: ${humanScore}:${computerScore}`);
+function updateScoreboard() {
+    const humanScoreText = document.getElementById("human-score");
+    const computerScoreText = document.getElementById("computer-score");
+    humanScoreText.textContent = humanScore;
+    computerScoreText.textContent = computerScore;
 }
 
-playGame();
+function restartGame() {
+    humanScore = 0;
+    computerScore = 0;
+    updateScoreboard();
+
+    const roundResults = document.getElementById("round-results");
+    while(roundResults.childNodes.length > 0) {
+        roundResults.removeChild(roundResults.childNodes[0]);
+    }
+}
+
+// logic
+const choiceContainer = document.querySelector(".choice-container");
+choiceContainer.addEventListener("click", function(event) {
+    const avaliableChoices = ["rock", "paper", "scissors"];
+    const choice = event.target.id;
+    
+    // event bubbles to container object, not needed
+    if(!avaliableChoices.includes(choice)) {
+        event.stopPropagation();
+        return;
+    }
+
+    playRound(getComputerChoice(), choice);
+});
+
+document.addEventListener("updatescore", function(event) {
+    updateScoreboard();
+    console.log(event.detail);
+});
+
+document.addEventListener("updatescore", () => {
+    if(computerScore >= 3 || humanScore >= 3)
+    {
+        const winResult = humanScore > computerScore ? 'won' : 'lost';
+        const finalMessage = `You ${winResult} the game! Score: ${humanScore}:${computerScore}`;
+        addRoundMessage(finalMessage);
+        alert(finalMessage);
+        restartGame();
+    }
+})

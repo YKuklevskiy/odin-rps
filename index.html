@@ -4,8 +4,32 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RPS</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div id="content" class="border">
+    <h1>Rock-Paper-Scissors</h1>
+
+    <div id="score-container" class="border">
+      <div id="human-score" class="score">0</div>
+      <span>:</span>
+      <div id="computer-score" class="score">0</div>
+    </div>
+
+    <div class="choice-container">
+      <button id="rock" class="choice-button border">⚪</button>
+      <button id="paper" class="choice-button border">📄</button>
+      <button id="scissors" class="choice-button border">✂️</button>
+    </div>
+
+    <div id="round-results-container">
+      <h2 class="rounds-header">Rounds</h2>
+      <div id="round-results">
+    </div>
+      
+    </div>
+  </div>
+  
   <script src="rps-script.js"></script>
 </body>
 </html>
