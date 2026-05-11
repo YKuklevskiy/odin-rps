@@ -59,6 +59,21 @@ function playRound(computerChoice, humanChoice) {
     return "score";
 }
 
+// logic
+const choiceContainer = document.querySelector(".choice-container");
+choiceContainer.addEventListener("click", function(event) {
+    const avaliableChoices = ["rock", "paper", "scissors"];
+    const choice = event.target.id;
+    
+    // event bubbles to container object, not needed
+    if(!avaliableChoices.includes(choice)) {
+        event.stopPropagation();
+        return;
+    }
+
+    playRound(getComputerChoice(), choice);
+})
+
 /*
 function playGame() {
     for (let i = 0; i < 5; i++) {
