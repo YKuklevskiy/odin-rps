@@ -21,6 +21,17 @@ function capitalize(str) {
     return str[0].toUpperCase() + str.slice(1).toLowerCase();
 }
 
+const updateScoreEvent = (winner) => {
+    return new CustomEvent("click", {detail: {winner: winner}})
+};
+
+function addRoundMessage(message) {
+    const roundResultsContainer = document.getElementById("round-results");
+    const round = document.createElement("p");
+    round.textContent = message;
+    roundResultsContainer.appendChild(round);
+}
+
 let computerScore = 0;
 let humanScore = 0;
 
@@ -28,7 +39,7 @@ function playRound(computerChoice, humanChoice) {
     humanChoice = humanChoice.toLowerCase();
 
     if (computerChoice === humanChoice) {
-        console.log(`Both chose ${capitalize(humanChoice)}! Round draw.`);
+        addRoundMessage(`Both chose ${capitalize(humanChoice)}! Round draw.`);
         return "draw";
     }
 
@@ -49,14 +60,24 @@ function playRound(computerChoice, humanChoice) {
     }
     
     if (humanWon) {
-        console.log(`You win! ${capitalize(humanChoice)} beats ${capitalize(computerChoice)}`);
+        addRoundMessage(`You win! ${capitalize(humanChoice)} beats ${capitalize(computerChoice)}`);
         humanScore++;
+        dispatchEvent(updateScoreEvent("human"));
     }
     else {
-        console.log(`You lose! ${capitalize(humanChoice)} loses to ${capitalize(computerChoice)}`);
+        addRoundMessage(`You lose! ${capitalize(humanChoice)} loses to ${capitalize(computerChoice)}`);
         computerScore++;
+        dispatchEvent(updateScoreEvent("computer"));
     }
+
     return "score";
+}
+
+function updateScoreboard() {
+    const humanScoreText = document.getElementById("human-score");
+    const computerScoreText = document.getElementById("computer-score");
+    humanScoreText.textContent = humanScore;
+    computerScoreText.textContent = computerScore;
 }
 
 // logic
@@ -72,7 +93,17 @@ choiceContainer.addEventListener("click", function(event) {
     }
 
     playRound(getComputerChoice(), choice);
-})
+});
+
+choiceContainer.addEventListener("click", function(event) {
+    updateScoreboard();
+    console.log(event.detail);
+});
+
+// for testing
+addRoundMessage("jesajejs");
+addRoundMessage("jesajejs");
+addRoundMessage("jesajejs");
 
 /*
 function playGame() {
