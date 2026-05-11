@@ -29,7 +29,7 @@ function addRoundMessage(message) {
     const roundResultsContainer = document.getElementById("round-results");
     const round = document.createElement("p");
     round.textContent = message;
-    roundResultsContainer.appendChild(round);
+    roundResultsContainer.insertBefore(round, roundResultsContainer.childNodes[0]);
 }
 
 let computerScore = 0;

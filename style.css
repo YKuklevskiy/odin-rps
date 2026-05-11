@@ -69,4 +69,14 @@ body {
 #round-results p {
     font-size: 1.25em;
     text-align: center;
+    opacity: 33%;
+}
+#round-results p:nth-child(1) {
+    opacity: 100%;
+}
+#round-results p:nth-child(2) {
+    opacity: 75%;
+}
+#round-results p:nth-child(3) {
+    opacity: 50%;
 }
