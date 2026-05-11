@@ -22,7 +22,10 @@ function capitalize(str) {
 }
 
 const updateScoreEvent = (winner) => {
-    return new CustomEvent("click", {detail: {winner: winner}})
+    return new CustomEvent("updatescore", {
+        bubbles: true, 
+        detail: {winner: winner}
+    });
 };
 
 function addRoundMessage(message) {
@@ -62,12 +65,12 @@ function playRound(computerChoice, humanChoice) {
     if (humanWon) {
         addRoundMessage(`You win! ${capitalize(humanChoice)} beats ${capitalize(computerChoice)}`);
         humanScore++;
-        dispatchEvent(updateScoreEvent("human"));
+        document.dispatchEvent(updateScoreEvent("human"));
     }
     else {
         addRoundMessage(`You lose! ${capitalize(humanChoice)} loses to ${capitalize(computerChoice)}`);
         computerScore++;
-        dispatchEvent(updateScoreEvent("computer"));
+        document.dispatchEvent(updateScoreEvent("computer"));
     }
 
     return "score";
@@ -95,7 +98,7 @@ choiceContainer.addEventListener("click", function(event) {
     playRound(getComputerChoice(), choice);
 });
 
-choiceContainer.addEventListener("click", function(event) {
+document.addEventListener("updatescore", function(event) {
     updateScoreboard();
     console.log(event.detail);
 });
