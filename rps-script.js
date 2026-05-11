@@ -114,11 +114,6 @@ document.addEventListener("updatescore", function(event) {
     console.log(event.detail);
 });
 
-// for testing
-addRoundMessage("jesajejs");
-addRoundMessage("jesajejs");
-addRoundMessage("jesajejs");
-
 document.addEventListener("updatescore", () => {
     if(computerScore >= 3 || humanScore >= 3)
     {
